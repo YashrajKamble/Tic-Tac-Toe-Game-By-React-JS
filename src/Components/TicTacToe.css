@@ -44,3 +44,7 @@
   margin: auto;
   display: flex;
 }
+
+.boxes img {
+  margin: 30px 30px;
+}
