@@ -1,8 +1,7 @@
 import "./TicTacToe.css";
 import circle from "./Assets/circle.png";
 import cross from "./Assets/cross.png";
-import { useState } from "react";
-import { useRef } from "react";
+import { useState, useRef } from "react";
 
 let data = ["", "", "", "", "", "", "", "", ""];
 
@@ -10,7 +9,7 @@ function TicTacToe() {
   const [count, setCount] = useState(0);
   const [lock, setLock] = useState(false);
   const titleRef = useRef(null);
-  
+
   let box1 = useRef(null);
   let box2 = useRef(null);
   let box3 = useRef(null);
@@ -25,17 +24,19 @@ function TicTacToe() {
 
   const toggle = (e, num) => {
     if (lock) {
-      return 0;
+      return;
+    }
+    if (data[num] !== "") {
+      return; // Prevent changing an already filled box
     }
     if (count % 2 === 0) {
-      e.target.innerHTML = `<img src='${cross}'>`;
+      e.target.innerHTML = `<img src='${cross}' alt='cross'>`;
       data[num] = "x";
-      setCount(++count);
     } else {
-      e.target.innerHTML = `<img src='${circle}'>`;
+      e.target.innerHTML = `<img src='${circle}' alt='circle'>`;
       data[num] = "o";
-      setCount(++count);
     }
+    setCount((prevCount) => prevCount + 1); // Corrected count increment
     checkWin();
   };
 
@@ -54,8 +55,6 @@ function TicTacToe() {
       won(data[8]);
     } else if (data[0] === data[4] && data[4] === data[8] && data[8] !== "") {
       won(data[8]);
-      // } else if (data[0] === data[1] && data[1] === data[2] && data[2] !== "") {
-      //   won(data[2]);
     } else if (data[2] === data[4] && data[4] === data[6] && data[6] !== "") {
       won(data[6]);
     }
@@ -64,17 +63,18 @@ function TicTacToe() {
   const won = (winner) => {
     setLock(true);
     if (winner === "x") {
-      titleRef.current.innerHTML = `Congratulation: <img src=${cross}`;
+      titleRef.current.innerHTML = `Congratulations: <img src='${cross}' alt='cross'>`;
     } else {
-      titleRef.current.innerHTML = `Congratulation: <img src=${circle}`;
+      titleRef.current.innerHTML = `Congratulations: <img src='${circle}' alt='circle'>`;
     }
   };
 
   const reset = () => {
     setLock(false);
     data = ["", "", "", "", "", "", "", "", ""];
+    setCount(0); // Reset count
     titleRef.current.innerHTML = "Tic Tac Toe In <span>React</span>";
-    box_array.map((e) => {
+    box_array.forEach((e) => {
       e.current.innerHTML = "";
     });
   };
@@ -161,7 +161,6 @@ function TicTacToe() {
 
       <button
         className="reset"
-        ref={box1}
         onClick={() => {
           reset();
         }}
