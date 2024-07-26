@@ -63,9 +63,9 @@ function TicTacToe() {
   const won = (winner) => {
     setLock(true);
     if (winner === "x") {
-      titleRef.current.innerHTML = `Congratulations: <img src='${cross}' alt='cross'>`;
+      titleRef.current.innerHTML = `Congratulations: <img src='${cross}' alt='cross'> Wins`;
     } else {
-      titleRef.current.innerHTML = `Congratulations: <img src='${circle}' alt='circle'>`;
+      titleRef.current.innerHTML = `Congratulations: <img src='${circle}' alt='circle'> Wins`;
     }
   };
 
@@ -73,7 +73,7 @@ function TicTacToe() {
     setLock(false);
     data = ["", "", "", "", "", "", "", "", ""];
     setCount(0); // Reset count
-    titleRef.current.innerHTML = "Tic Tac Toe In <span>React</span>";
+    titleRef.current.innerHTML = "Tic Tac Toe Game in <span>React</span>";
     box_array.forEach((e) => {
       e.current.innerHTML = "";
     });
@@ -82,7 +82,7 @@ function TicTacToe() {
   return (
     <div className="container">
       <h1 className="title" ref={titleRef}>
-        Tic Tac Toe <span>React</span>
+        Tic Tac Toe Game in <span>React</span>
       </h1>
 
       <div className="board">
