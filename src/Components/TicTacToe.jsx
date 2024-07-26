@@ -10,6 +10,7 @@ function TicTacToe() {
   const [count, setCount] = useState(0);
   const [lock, setLock] = useState(false);
   const titleRef = useRef(null);
+  
   let box1 = useRef(null);
   let box2 = useRef(null);
   let box3 = useRef(null);
